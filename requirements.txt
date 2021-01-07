@@ -1,0 +1,11 @@
+#
+# List of Python module requirements that are necessary for running the code.
+#
+# To make use of this file, run the following command:
+# 
+#    pip install -r requirements.txt
+#
+
+cssselect >= 1.0
+lxml >= 4.5
+requests >= 2.24
