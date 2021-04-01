@@ -57,7 +57,7 @@ class TagConfig():
     def add_tag(self, name, css):
         """
         """
-        self.extra_tags[tag] = CSSSelector(css=css)
+        self.extras[name] = CSSSelector(css=css)
 
 
 class Parser():
@@ -103,7 +103,6 @@ class Parser():
         """
         # Get the HTML text
         req = requests.get(self.url['base'], params=self.get_params())
-        print(req.url)
         req = fromstring(req.text)
 
         # Resutl to be returned
