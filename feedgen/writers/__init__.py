@@ -1,2 +1,3 @@
 
-from .rss import Rss
+from .rssfeed  import RssFeed
+from .jsonfeed import JsonFeed

@@ -4,7 +4,7 @@ from lxml import etree
 
 from ..parsers.parser import ParserResult
 
-class Rss():
+class RssFeed():
 
     def __init__(self, title, link, descrip):
         """
