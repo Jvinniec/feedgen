@@ -5,7 +5,7 @@ To use this RSS generator to pull information from Google News you would do
 something like the following:
 ```python
 # Load the Google News parser and RSS feed generator
-from rssgen.parsers import GoogleNews
+from feedgen.parsers import GoogleNews
 
 # Parse Google News results
 parser = GoogleNews()            # Create the parser object
@@ -16,12 +16,12 @@ results = parser.parse_html()    # Run the actual query
 
 Once you have the parsed results from the site, you can write out into an RSS-like feed:
 ```python
-from rssgen.writers import Rss
+from feedgen.writers import RssFeed
 
 # Define the RSS feed
-rss_feed = Rss(title='My Feed',
-                link='https://www.mysite.com',
-                descrip='NPR news articles that are relevant to cute cats')
+rss_feed = RssFeed(title='My Feed',
+               link='https://www.mysite.com',
+               descrip='NPR news articles that are relevant to cute cats')
 # Write the results
 rss_feed.write(results, 'npr_cats.xml')
 ```
