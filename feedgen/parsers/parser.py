@@ -9,8 +9,18 @@ class ParserResult():
     A compressed representation of the parsed results
     """
 
-    def __init__(self, title, link, descrip, extras={}):
+    def __init__(self, title:str, link:str, descrip:str, extras={}):
         """
+        Parameters
+        ----------
+        title: `str()`
+            Title extracted from the result
+        link: `str()`
+            Url associated with the result
+        descrip: `str()`
+            Description of the parsed result
+        extras: `dict()`
+            Dictionary of extra tags extracted
         """
         self.title   = title
         self.link    = link
@@ -20,7 +30,7 @@ class ParserResult():
 
     def __str__(self):
         """
-        Pretty string representation for printing
+        Pretty string representation for printing to the screen
         """
         # Assemble the string
         rep  = f'title: {self.title}\n'
@@ -39,6 +49,20 @@ class TagConfig():
     """
 
     def __init__(self, container, title, link, descrip, extras={}):
+        """
+        Parameters
+        ----------
+        container: `str()`
+            CSS selection for the object that contains a given tag
+        title: `str()`
+            CSS selection for the title tag
+        link: `str()`
+            CSS selection for the URL
+        descrip: `str()`
+            CSS selection for the description
+        extras: `dict()`
+            Extra CSS selectors with (key,CSS) pairs
+        """
 
         # The top level container
         self.container = CSSSelector(container)
@@ -56,6 +80,15 @@ class TagConfig():
 
     def add_tag(self, name, css):
         """
+        Add a given tag to the extra tags to be extracted
+
+        Parameters
+        ----------
+        name: `str()`
+            String to be associated with the extracted tag
+        css: `str()`
+            CSS selection text used to identify what part of the HTML to extract
+            as the value of 'name'
         """
         self.extras[name] = CSSSelector(css=css)
 
@@ -69,6 +102,13 @@ class Parser():
     def __init__(self, limit=100, **kwargs):
         """
         Initialize the parser class
+        
+        Parameters
+        ----------
+        limit: `int()`
+            Maximum number of results to return
+        kwargs:
+            Extra parameters
         """
         self.name = 'default'
         self.type = 'default'
@@ -163,6 +203,13 @@ class SearchParser(Parser):
 
     def __init__(self, search_tag='q', **kwargs):
         """Initialize the search parser
+
+        Parameters
+        ----------
+        search_tag: `str()`
+            String that represents the tag that is used in the search url
+        kwargs: 
+            Additional parameters
         """
         super().__init__(**kwargs)
 
