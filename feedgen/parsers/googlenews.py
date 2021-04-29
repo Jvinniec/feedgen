@@ -1,5 +1,7 @@
 
 from .parser import SearchParser, TagConfig
+from .parser import CSSInnerText, CSSAttribute
+import datetime
 
 class GoogleNews(SearchParser):
     """
@@ -20,11 +22,15 @@ class GoogleNews(SearchParser):
 
         # Tags to be parsed
         self.tag_config = TagConfig(
-            container = 'div.NiLAwe',
-            title     = 'h3.ipQwMb',
-            link      = 'a.VDXfz',
-            descrip   = 'span.xBbh9'
-        )
+            container = CSSInnerText('div.NiLAwe'),
+            title     = CSSInnerText('h3.ipQwMb'),
+            link      = CSSAttribute('a.VDXfz', attr='href'),
+            descrip   = CSSInnerText('span.xBbh9'),
+            extras = {
+                'pubDate': CSSAttribute('time.WW6dff', attr='datetime',
+                                        default=datetime.datetime.now().isoformat())
+            }
+        ) 
         
         # Sites to have Google News
         self.sites = []
