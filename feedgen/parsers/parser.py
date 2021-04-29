@@ -38,9 +38,93 @@ class ParserResult():
         rep += f'description: {self.descrip}'
 
         for name,tag in self.extras.items():
-            rep += f'{name}: {tag}'
+            rep += f'\n{name}: {tag}'
 
         return rep
+
+
+class CSSInnerText(CSSSelector):
+    """
+    Class used to define a tag that we want to pull out the inner text from.
+    """
+    def __init__(self, css:str, default=None):
+        """
+        Initialize CSSInnerText class
+
+        Parameters
+        ----------
+        css: `str`
+            CSS selection tag
+        default: any
+            Default value to be returned if no valid entry is found
+        """
+        super().__init__(css=css)
+        self.default = default
+
+    def get(self, div):
+        """
+        Returns the value as defined by the 'getValue' method
+
+        Parameters
+        ----------
+        div: 
+            'div' element extracted from webpage
+        """
+        try:
+            return self.getValue(div)
+        except IndexError as e:
+            if self.default is None:
+                raise e
+            else:
+                return self.default
+        
+
+    def getValue(self, div, indx=0):
+        """
+        Returns the value from the inner text of the element
+
+        Parameters
+        ----------
+        div: 
+            'div' element extracted from webpage
+        indx: `int`
+            Index of the element to extract the element from
+        """
+        return self(div)[indx].text_content()
+
+
+class CSSAttribute(CSSInnerText):
+    """
+    Class used for extracting a value from a tags attribute.
+    """
+    def __init__(self, css:str, attr:str, default=None):
+        """
+        Initialize CSSAttribute class
+
+        Parameters
+        ----------
+        css: `str`
+            CSS selection tag
+        attr: `str`
+            Attribute from which to get the value from.
+        default: any
+            Default value to be returned if no valid entry is found
+        """
+        super().__init__(css=css, default=default)
+        self.attribute = attr
+
+    def getValue(self, div, indx=0):
+        """
+        Returns the value from the user defined attribute
+
+        Parameters
+        ----------
+        div: 
+            'div' element extracted from webpage
+        indx: `int`
+            Index of the element to extract the element from
+        """
+        return self(div)[indx].get(self.attribute)
 
 
 class TagConfig():
@@ -48,7 +132,8 @@ class TagConfig():
     Configuration for tag hierarchy
     """
 
-    def __init__(self, container, title, link, descrip, extras={}):
+    def __init__(self, container:CSSInnerText, title:CSSInnerText, 
+                       link:CSSInnerText, descrip:CSSInnerText, extras={}):
         """
         Parameters
         ----------
@@ -65,12 +150,12 @@ class TagConfig():
         """
 
         # The top level container
-        self.container = CSSSelector(container)
+        self.container = container
 
         # Tag configuration
-        self.title   = CSSSelector(css=title)
-        self.link    = CSSSelector(css=link)
-        self.descrip = CSSSelector(css=descrip)
+        self.title   = title
+        self.link    = link
+        self.descrip = descrip
 
         # Additional tags
         self.extras = {}
@@ -90,7 +175,7 @@ class TagConfig():
             CSS selection text used to identify what part of the HTML to extract
             as the value of 'name'
         """
-        self.extras[name] = CSSSelector(css=css)
+        self.extras[name] = css
 
 
 class Parser():
@@ -151,14 +236,15 @@ class Parser():
         # Parse the HTML
         for div in self.tag_config.container(req):
             # Get the required tags
-            title   = self.tag_config.title(div)[0].text_content()
-            link    = self.tag_config.link(div)[0].get('href')
-            descrip = self.tag_config.descrip(div)[0].text_content()
+            # title   = self.tag_config.title(div)[0].text_content()
+            title   = self.tag_config.title.get(div)
+            link    = self.tag_config.link.get(div)
+            descrip = self.tag_config.descrip.get(div)
 
             # Parse the extra components
             extras = {}
             for name,tag in self.tag_config.extras.items():
-                extras[name] = tag(div)[0].text_content()
+                extras[name] = tag.get(div)
 
             # Assemble the parsed results
             res = ParserResult(
