@@ -20,10 +20,21 @@ from feedgen.writers import RssFeed
 
 # Define the RSS feed
 rss_feed = RssFeed(title='My Feed',
-               link='https://www.mysite.com',
-               descrip='NPR news articles that are relevant to cute cats')
+                   link='https://www.mysite.com',
+                   descrip='NPR news articles that are relevant to cute cats')
 # Write the results
 rss_feed.write(results, 'npr_cats.xml')
+```
+There's also the ability to generate a JSON formatted feed:
+```python
+from feedgen.writers import JsonFeed
+
+# Define the RSS feed
+jsn_feed = JsonFeed(title='My Feed',
+                    link='https://www.mysite.com',
+                    descrip='NPR news articles that are relevant to cute cats')
+# Write the results
+jsn_feed.write(results, 'npr_cats.json')
 ```
 
 You can also print the results to the screen:
