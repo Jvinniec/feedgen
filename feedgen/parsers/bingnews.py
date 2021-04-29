@@ -1,5 +1,6 @@
 
 from .parser import SearchParser, TagConfig
+from .parser import CSSInnerText, CSSAttribute
 
 class BingNews(SearchParser):
     """
@@ -21,10 +22,10 @@ class BingNews(SearchParser):
 
         # Tags to be parsed
         self.tag_config = TagConfig(
-            container = 'div.news-card',
-            title     = 'a.title',
-            link      = 'a.title',
-            descrip   = 'div.snippet'
+            container = CSSInnerText('div.news-card'),
+            title     = CSSInnerText('a.title'),
+            link      = CSSAttribute('a.title', 'href'),
+            descrip   = CSSInnerText('div.snippet')
         )
         
         # Sites to have Google News
