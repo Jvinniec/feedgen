@@ -1,5 +1,6 @@
 
 from .parser import SearchParser, TagConfig
+from .parser import CSSInnerText, CSSAttribute
 
 class YahooNews(SearchParser):
     """
@@ -20,8 +21,8 @@ class YahooNews(SearchParser):
 
         # Tags to be parsed
         self.tag_config = TagConfig(
-            container = 'div.NewsArticle',
-            title     = 'h4.s-title',
-            link      = 'h4.s-title a',
-            descrip   = 'p.s-desc'
+            container = CSSInnerText('div.NewsArticle'),
+            title     = CSSInnerText('h4.s-title'),
+            link      = CSSAttribute('h4.s-title a', 'href'),
+            descrip   = CSSInnerText('p.s-desc')
         )
