@@ -1,4 +1,5 @@
 import json
+import datetime
 
 from ..parsers.parser import ParserResult
 
@@ -42,6 +43,10 @@ class JsonFeed():
 
         # Add the extra tags as child elements
         for tag,value in entry.extras.items():
+            # Format datetime objects
+            if isinstance(value, datetime.datetime):
+                value = value.isoformat()
+
             parent[tag] = value
 
         return parent

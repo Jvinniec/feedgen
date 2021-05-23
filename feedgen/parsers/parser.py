@@ -242,7 +242,10 @@ class Parser():
             descrip = self.tag_config.descrip.get(div)
 
             # Parse the extra components
-            extras = {}
+            extras = {
+                'src_name': self.name,
+                'src_url' : self.url['base']
+            }
             for name,tag in self.tag_config.extras.items():
                 extras[name] = tag.get(div)
 
