@@ -25,7 +25,7 @@ class GoogleNews(SearchParser):
             container = CSSInnerText('div.NiLAwe'),
             title     = CSSInnerText('h3.ipQwMb'),
             link      = CSSAttribute('a.VDXfz', attr='href'),
-            descrip   = CSSInnerText('span.xBbh9'),
+            descrip   = CSSInnerText('h3.ipQwMb'),
             extras = {
                 'pubDate': CSSAttribute('time.WW6dff', attr='datetime',
                                         default=datetime.datetime.now().isoformat())
@@ -56,12 +56,9 @@ class GoogleNews(SearchParser):
         -------
         Python dict() object of the form <name,value>
         """
-        # Setup the search term
-        search_term = self.search_text
-
         # Assemble the sites
         if len(self.sites) > 0:
-            search_term += ' site:' + ('OR site:'.join(self.sites))
+            self.search_text += ' site:' + ('OR site:'.join(self.sites))
 
         return super().get_params()
 
