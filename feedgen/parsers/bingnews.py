@@ -52,11 +52,8 @@ class BingNews(SearchParser):
         -------
         Python dict() object of the form <name,value>
         """
-        # Setup the search term
-        search_term = self.search_text
-
         # Assemble the sites
         if len(self.sites) > 0:
-            search_term += ' site:' + ('OR site:'.join(self.sites))
+            self.search_text += ' site:' + ('OR site:'.join(self.sites))
 
         return super().get_params()
