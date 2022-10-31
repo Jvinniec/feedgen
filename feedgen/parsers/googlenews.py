@@ -8,8 +8,14 @@ class GoogleNews(SearchParser):
     Parser that pulls news results from 'https://news.google.com'
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs) -> None:
         """
+        Initializes the Google News parser
+
+        Parameters
+        ----------
+        kwargs
+            List of extra parameters to pass to the `SearchParser` parent class
         """
         super().__init__(search_tag='q', **kwargs)
 
@@ -36,19 +42,19 @@ class GoogleNews(SearchParser):
         self.sites = []
 
 
-    def add_site(self, site):
+    def add_site(self, site:str) -> None:
         """
         Append a site to the list of sites to restrict querying to
 
         Parameters
         ----------
-        site: str
+        site : `str`
             Site to be queried (examples: 'wsj.com', 'npr.org')
         """
         self.sites.append(site)
 
 
-    def get_params(self):
+    def get_params(self) -> dict:
         """
         Return a dictionary of parameters to pass to the query
 
@@ -63,7 +69,7 @@ class GoogleNews(SearchParser):
         return super().get_params()
 
 
-    def process_link(self, link):
+    def process_link(self, link:str) -> str:
         """
         Google links are given as './article/...'. In order for them to function
         properly, we need to format them to strip the initial './' and append
@@ -71,8 +77,8 @@ class GoogleNews(SearchParser):
 
         Parameters
         ----------
-        link : string
-            Link to be tested
+        link : `str`
+            Link to be processed
 
         Return
         ------

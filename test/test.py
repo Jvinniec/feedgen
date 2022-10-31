@@ -1,3 +1,6 @@
+# Update the path so that we pull from the current version of the code
+import os, sys
+sys.path.append(os.path.join(os.path.dirname(__file__),'..'))
 
 from feedgen.parsers import GoogleNews, BingNews, YahooNews
 from feedgen.writers import RssFeed, JsonFeed

@@ -1,22 +1,25 @@
 
 from lxml.etree import Element, ElementTree
 from lxml import etree
+import lxml
+from typing import Any, List, Dict
 
 from ..parsers.parser import ParserResult
 
 class RssFeed():
+    """ Class for constructing an RSS feed from a list of ParseResult objects """
 
-    def __init__(self, title, link, descrip):
+    def __init__(self, title:str, link:str, descrip:str) -> None:
         """
         Construct an RSS object
 
         Parameters
         ----------
-        title: str
+        title : `str`
             The name of the channel that you're creating
-        link: str
+        link : `str`
             Link to HTML site hosting this RSS
-        descrip: str
+        descrip : `str`
             Description of this RSS feed 
         """
         self.title   = title
@@ -26,13 +29,32 @@ class RssFeed():
         self.extra_tags = {}
 
 
-    def add_top_tag(self, tag, value):
+    def add_top_tag(self, tag:str, value:Any) -> None:
         """
+        Set the value of a specific top-level tag.
+
+        Parameters
+        ----------
+        tag : `str`
+            Tag in `self.extra_tags` to be set
+        value : `Any`
+            Value to be set. Can be any value.
         """
         self.extra_tag[tag] = value
 
-    def gen_item(self, entry):
+
+    def gen_item(self, entry:ParserResult) -> lxml.etree.Element:
         """
+        Create an XML tree of values associated with a single parsed result
+
+        Parameters
+        ----------
+        entry : `ParserResult`
+            Parsed results from a webpage to be converted
+
+        Returns
+        -------
+        XML tree containing results extracted from `entry`
         """
         parent = Element('item')
 
@@ -62,8 +84,18 @@ class RssFeed():
         return parent
 
 
-    def feed_xml(self, entries):
+    def feed_xml(self, entries:List[ParserResult]) -> lxml.etree.Element:
         """
+        Returns a list of parsed website results as an XML formatted list
+
+        Parameters
+        ----------
+        entries : `List[ParserResult]`
+            List of parsed results to be converted to XML
+        
+        Returns
+        -------
+        XML formatted results from `entries`
         """
         # Construct the top element
         channel = Element('channel')
@@ -98,8 +130,20 @@ class RssFeed():
         return root
 
 
-    def feed_str(self, entries, pretty_print=True):
+    def feed_str(self, entries:List[ParserResult], pretty_print:bool=True) -> str:
         """
+        Convert parsed results into a string suitable for outputing to a file
+
+        Parameters
+        ----------
+        entries : `List[ParserResult]`
+            List of entries parsed from the web
+        pretty_print : `bool` (default=True)
+            Creates formatted XML output
+
+        Returns
+        -------
+        XML output formatted as a string
         """
         # Get the XML output
         xml_out = self.feed_xml(entries)
@@ -110,9 +154,18 @@ class RssFeed():
                               pretty_print=pretty_print)
 
 
-    def write(self, entries, filename, pretty_print=True):
+    def write(self, entries:List[ParserResult], filename:str, pretty_print:bool=True) -> None:
         """
         Writes parsed site data to a given file
+
+        Parameters
+        ----------
+        entries : `List[ParserResult]`
+            List of entries parsed from the web
+        filename : `str`
+            Name of the file to write results to
+        pretty_print : `bool` (default=True)
+            Creates formatted XML output
         """
         with open(filename, 'wb') as fl:
             fl.write( self.feed_str(entries=entries, 

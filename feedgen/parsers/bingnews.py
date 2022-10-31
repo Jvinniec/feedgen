@@ -7,9 +7,14 @@ class BingNews(SearchParser):
     Parser that pulls results from 'https://news.bing.com'
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs) -> None:
         """
         Initializes the Bing News parser
+
+        Parameters
+        ----------
+        kwargs
+            List of extra parameters to pass to the `SearchParser` parent class
         """
         super().__init__(search_tag='q', **kwargs)
 
@@ -32,19 +37,19 @@ class BingNews(SearchParser):
         self.sites = []
 
 
-    def add_site(self, site):
+    def add_site(self, site:str) -> None:
         """
         Append a site to the list of sites to restrict querying to
 
         Parameters
         ----------
-        site: str
+        site : `str`
             Site to be queried (examples: 'wsj.com', 'npr.org')
         """
         self.sites.append(site)
 
 
-    def get_params(self):
+    def get_params(self) -> dict:
         """
         Assemble query parameters
 
