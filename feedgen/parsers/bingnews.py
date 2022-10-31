@@ -1,3 +1,14 @@
+# File: feedgen/parsers/bingnews.py
+# Author: J. Cardenzana (c) 2022
+# =============================================================================
+# File defines the BingNews site parser. This method allows adding site results
+# from Bing news search. Results from specific news sites can be searched by
+# passing them to the `add_site()` method.
+#
+# This parser adds the following tags to each in generated feeds:
+#    - src_name: Bing News
+#    - src_url: https://news.bing.com/
+# =============================================================================
 
 from .parser import SearchParser, TagConfig
 from .parser import CSSInnerText, CSSAttribute

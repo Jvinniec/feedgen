@@ -1,3 +1,9 @@
+# File: feedgen/validators/rss_validator.py
+# Author: J. Cardenzana (c) 2022
+# =============================================================================
+# Defines the RssValidator class that is used (in conjunction with an RSS 
+# schema file) to validate that an RSS feed is properly formatted.
+# =============================================================================
 
 from lxml import etree
 

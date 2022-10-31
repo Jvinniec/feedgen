@@ -1,3 +1,25 @@
+# File: feedgen/writers/rssfeed.py
+# Author: J. Cardenzana (c) 2022
+# =============================================================================
+# This file defines the implementation of the `RssFeed` class. This file is
+# responsible for writing the results of parsing a page to an XML formatted RSS
+# file. 
+# Each RSS Feed is required to have the following parameters at the top level
+# (channel):
+#    - title (string): A title for the feed
+#    - link (string): A link that defines the feed's location (hosting url)
+#    - description (string): Description of the RSS feed
+#    - item (XML item): Any number of items defining a link in the feed
+# The channel includes a list of items that have the following required 
+# parameters:
+#    - title (string): Title of the feed entry
+#    - link (string): Link to the article entry
+#    - description (string): Short description of the article
+# Additional optional parameters:
+#    - guid (string): Unless set by the parser author, defaults to the link
+#    - src_name (string): Name of base site (e.g. 'Yahoo News')
+#    - src_url (string): Base URL for the source (e.g. 'https://news.search.yahoo.com/search?')
+# =============================================================================
 
 from lxml.etree import Element, ElementTree
 from lxml import etree

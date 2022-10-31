@@ -1,3 +1,25 @@
+# File: feedgen/writers/jsonfeed.py
+# Author: J. Cardenzana (c) 2022
+# =============================================================================
+# This file defines the implementation of the `JsonFeed` class. This file is
+# responsible for writing the results of parsing a page to a JSON formatted 
+# file. 
+#
+# Each RSS Feed is required to have the following parameters at the top level:
+#    - version (string): JSON feed version (e.g. 'https://jsonfeed.org/version/1.1')
+#    - title (string): A title for the feed
+#    - home_page_url (string): A link that defines the feed's location (hosting url)
+#    - description (string): Description of the RSS feed
+#    - items (JSON list): Any number of item objects defining a link in the feed
+# The channel includes a list of items that have the following parameters:
+#    - id (string): Unless set by the parser author, defaults to the link
+#    - title (string): Title of the feed entry
+#    - url (string): Link to the article entry
+#    - content_text (string): Short description of the article
+#    - src_name (string): Name of base site (e.g. 'Yahoo News')
+#    - src_url (string): Base URL for the source (e.g. 'https://news.search.yahoo.com/search?')
+# =============================================================================
+
 import json
 import datetime
 from typing import Any, List, Dict
