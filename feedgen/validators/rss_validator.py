@@ -6,15 +6,20 @@ class RssValidator():
     Validator class for RSS feeds
     """
 
-    def __init__(self, 
-                 schema_filename : str):
+    def __init__(self, schema_filename:str) -> None:
         """
+        Contructor for RssValidator class
+
+        Parameters
+        ----------
+        schema_filename : `str`
+            Filename containing schema definition for an RSS format
         """
         schema_doc = etree.parse(schema_filename)
         self.schema = etree.XMLSchema(schema_doc)
 
-    def validate(self, 
-                 rss_feed : str) -> bool:
+
+    def validate(self, rss_feed:str) -> bool:
         """
         Based on the validator that was supplied at construction time
         check if the supplied file is a validly formatted

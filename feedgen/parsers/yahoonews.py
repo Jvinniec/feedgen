@@ -7,8 +7,14 @@ class YahooNews(SearchParser):
     Yahoo News parser
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs) -> None:
         """
+        Initializes the Yahoo News parser
+
+        Parameters
+        ----------
+        kwargs
+            List of extra parameters to pass to the `SearchParser` parent class
         """
         super().__init__(search_tag='p', **kwargs)
 
