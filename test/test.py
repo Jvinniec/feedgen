@@ -23,7 +23,7 @@ if __name__ == '__main__':
     rss = JsonFeed(title='test',
                link='https://www.github.com',
                descrip='This is only a test')
-    rss.write(results, 'test.json')
+    rss.write(results, 'test.json', pretty_print=True)
 
     # Print the titles
     for res in results:

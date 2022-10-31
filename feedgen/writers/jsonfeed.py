@@ -117,8 +117,9 @@ class JsonFeed():
             List of parsed results
         filename : `str`
             File name to write the entries to
-        pretty_print : `bool`
-            Currently does nothing
+        pretty_print : `bool` (default=True)
+            Generates the file with newlines and 2 space indentation
         """
+        indent = 2 if pretty_print else None
         with open(filename, 'w') as fl:
-            json.dump(self.feed_json(entries), fl)
+            json.dump(self.feed_json(entries), fl, indent=indent)
