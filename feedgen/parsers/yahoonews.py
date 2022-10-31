@@ -1,3 +1,13 @@
+# File: feedgen/parsers/yahoonews.py
+# Author: J. Cardenzana (c) 2022
+# =============================================================================
+# File defines the YahooNews site parser. This method allows adding site results
+# from Yahoo news search.
+#
+# This parser adds the following tags to each in generated feeds:
+#    - src_name: Yahoo News
+#    - src_url: https://news.search.yahoo.com/search?
+# =============================================================================
 
 from .parser import SearchParser, TagConfig
 from .parser import CSSInnerText, CSSAttribute

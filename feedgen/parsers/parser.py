@@ -1,3 +1,26 @@
+# File: feedgen/parsers/parser.py
+# Author: J. Cardenzana (c) 2022
+# =============================================================================
+# File defines the Parser base class, from which all parser classes
+# inherit. 
+#
+# File defines the SearchParser base class, from which all search engine based
+# parsers inherit.
+#
+# File defines the ParserResult class, which defines a single article extracted
+# by a site parser.
+#
+# File defines the CSSInnerText class that allows parsing text from a websites
+# HTML using CSS based key words to pick specific elements based on their type,
+# class, or id. It then represents the inner text of that element.
+#
+# File defines the CSSAttribute class that allows parsing text from a website's
+# HTML using CSS based key words to pick specific elements based on their type,
+# class, or id. It then represents a specific attribute of that element.
+#
+# File defines the TagConfig class that defines the hierarchy of terms that are
+# to be extracted from a site.
+# =============================================================================
 
 import requests
 from lxml.html import fromstring
