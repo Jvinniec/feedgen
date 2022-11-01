@@ -6,20 +6,22 @@
 # =============================================================================
 
 from lxml import etree
+import os
 
 class RssValidator():
     """
     Validator class for RSS feeds
     """
 
-    def __init__(self, schema_filename:str) -> None:
+    def __init__(self, schema_filename:str=os.path.join(os.path.dirname(__file__),'rss_schema.xml')) -> None:
         """
         Contructor for RssValidator class
 
         Parameters
         ----------
         schema_filename : `str`
-            Filename containing schema definition for an RSS format
+            Filename containing schema definition for an RSS format. By default
+            this is 'feedgen/validators/rss_schema.xml'
         """
         schema_doc = etree.parse(schema_filename)
         self.schema = etree.XMLSchema(schema_doc)
