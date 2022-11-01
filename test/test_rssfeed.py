@@ -26,10 +26,10 @@ if __name__ == '__main__':
                   descrip='This is only a test')
     rss.write(results, 'test.xml', pretty_print=True)
 
-    # Validate the RSS feed
-    # print(f'RSS Feed is {"valid" if RssValidator()}')
-
     # Print the titles
     for res in results:
         print(res.title)
         print(f'   link: {res.link}')
+
+    # Validate the RSS feed
+    print(f'RSS Feed is {"valid" if RssValidator().validate("test.xml") else "invalid"}')
