@@ -32,8 +32,9 @@ class YahooNews(SearchParser):
         self.type = 'yahoonews'
 
         # Define the URL and query parameters
-        self.url['base'] = 'https://news.search.yahoo.com/search?'
-        self.url['params'] = {}
+        self.url['base']     = 'https://news.search.yahoo.com'
+        self.url['endpoint'] = 'search'
+        self.url['params']   = {}
 
         # Tags to be parsed
         self.tag_config = TagConfig(
