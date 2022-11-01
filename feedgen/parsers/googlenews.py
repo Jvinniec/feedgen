@@ -34,8 +34,9 @@ class GoogleNews(SearchParser):
         self.type = 'googlenews'
 
         # Define the URL and query parameters
-        self.url['base'] = 'https://news.google.com/'
-        self.url['params'] = {}
+        self.url['base']     = 'https://news.google.com'
+        self.url['endpoint'] = 'search'
+        self.url['params']   = {}
 
         # Tags to be parsed
         self.tag_config = TagConfig(
