@@ -241,6 +241,7 @@ class Parser():
         self.type = 'default'
         self.url = {
             'base': None,
+            'endpoint': '',
             'params': {}
         }
 
@@ -273,7 +274,8 @@ class Parser():
         Parsed results from the specified URL
         """
         # Get the HTML text
-        req = requests.get(self.url['base'], params=self.get_params())
+        full_url = f"{self.url['base']}/{self.url['endpoint']}"
+        req = requests.get(full_url, params=self.get_params())
         req = fromstring(req.text)
 
         # Resutl to be returned
